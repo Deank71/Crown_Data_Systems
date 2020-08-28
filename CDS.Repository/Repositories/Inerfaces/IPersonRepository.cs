@@ -8,5 +8,6 @@ namespace CDS.Repository.Repositories.Inerfaces
 {
     public interface IPersonRepository:IRepository<Person>
     {
+        public List<Person> Sort(int dir,string field);
     }
 }

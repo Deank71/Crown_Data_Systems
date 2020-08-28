@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using CDS.Data.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using CDS.Repository.UnitOfWork;
+using CDS.Repository.Repositories.Inerfaces;
+using CDS.Repository.Repositories;
 
 namespace CDS.Repository
 {
@@ -22,6 +25,8 @@ namespace CDS.Repository
         {
             services.AddDbContext<CDSContext>(options =>
     options.UseSqlServer(Configuration.GetConnectionString("CDSContext")));
+            services.AddScoped(typeof(IUnitOfWork), typeof(IUnitOfWork));
+            services.AddScoped(typeof(IPersonRepository), typeof(PersonRepository));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

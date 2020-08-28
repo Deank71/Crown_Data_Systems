@@ -30,13 +30,29 @@ namespace MainApplication.Controllers
             var result = new List<Person>();
             try
             {
-              var  result2 = _unitOfWork.Person.GetAll();
+               result = _unitOfWork.Person.GetAll();
             }
             catch(Exception ex)
             {
                 
             }
                 return result;            
+        }
+
+        // GET: api/<controller>
+        [Route("/api/SortPeople")]
+        public List<Person> SortPeople(int dir, string field)
+        {
+            var result = new List<Person>();
+            try
+            {
+                result = _unitOfWork.Person.Sort(dir,field).ToList();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
         }
 
         // GET api/<controller>/5
