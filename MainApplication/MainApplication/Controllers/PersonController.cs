@@ -30,7 +30,7 @@ namespace MainApplication.Controllers
             var result = new List<Person>();
             try
             {
-               result = _unitOfWork.Person.GetAll();
+               result = _unitOfWork.Person.GetAll().ToList();
             }
             catch(Exception ex)
             {
