@@ -33,7 +33,7 @@ namespace MainApplication
             });
 
             services.AddDbContext<CDSContext>(options =>
-  options.UseSqlServer(Configuration.GetConnectionString("DemoDBContext")));
+  options.UseSqlServer(Configuration.GetConnectionString("CDSContext")));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddScoped(typeof(IPersonRepository), typeof(PersonRepository));
         }
