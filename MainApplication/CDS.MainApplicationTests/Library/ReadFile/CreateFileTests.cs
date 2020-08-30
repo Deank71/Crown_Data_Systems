@@ -16,8 +16,11 @@ namespace CDS.MainApplication.Library.ReadFile.Tests
             //Arrange
             CreateFile createFile = new CreateFile();
             string targetpath = @"C:\Users\Dean\Source\Repos\CrownDataSystems\MainApplication\MainApplication\Files\";
+            
             //Act
             string result =  createFile.CreateFiles(targetpath);
+           
+            //Assert
             Assert.IsTrue(result == "success");
         }
     }

@@ -1,61 +1,55 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MainApplication.Controllers;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using CDS.Repository.UnitOfWork;
 using CDS.Data.Models;
-using System.Linq;
 using Moq;
-using Microsoft.EntityFrameworkCore;
 using CDS.Repository.Repositories.Inerfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MainApplication.Controllers.Tests
 {
     [TestClass()]
     public class PersonControllerTests
     {
-        private IUnitOfWork mockUnitOfWork;
-        private IRepository<Person> mockPersonRepo;
-        private PersonController personController;
+       private PersonController personController;
         [TestInitialize]
         public void Initialize()
         {
-         
-            this.mockUnitOfWork = new Mock<IUnitOfWork>().Object;
-            var contextMock = new Mock<CDSContext>();
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            contextMock.Setup(a => a.Set<Person>()).Returns(Mock.Of<DbSet<Person>>);
-             personController = new PersonController(this.mockUnitOfWork);
-          
+            Mock<IUnitOfWork> unitOfWork = new Mock<IUnitOfWork>();
+            unitOfWork.Setup(u => u.Person).Returns(new Mock<IPersonRepository>().Object);
+            personController = new PersonController(unitOfWork.Object);   
         }
 
         [TestMethod()]
         public void GetTest()
         {
             // Arrange
-        
-           
-           
             List<Person> person = new List<Person>();
        
-            person = personController.Get();    
+            // Act
+            person = personController.Get();  
+            
+            //Assert
             Assert.IsTrue(person.Count == 0);
         }
 
         [TestMethod()]
         public void AddPersonTest()
         {
-
+         // Arrange
             Person person = (new Person
             {
                 Age = 12,
                 Name = "John Doe",
             });
 
-            var result = personController.AddPerson(person);
+           // Act
+           var result = personController.AddPerson(person);
+            var okResult = result as OkObjectResult;
 
-            Assert.Fail();
+            // Assert
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
         }
     }
 }

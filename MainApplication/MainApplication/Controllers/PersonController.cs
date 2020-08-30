@@ -16,10 +16,8 @@ namespace MainApplication.Controllers
     {
 
         private readonly IUnitOfWork _unitOfWork;
-       //  this.mockIndexRepo = MockRepository<Index>.CreateMock().Object;
         public PersonController(IUnitOfWork unitOfWork)
-        {
-        
+        {        
             _unitOfWork = unitOfWork;
         }
 
